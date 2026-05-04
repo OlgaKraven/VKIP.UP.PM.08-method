@@ -1,0 +1,42 @@
+site_name: Учебная практика ПМ.08 — Разработка веб-приложений
+
+use_directory_urls: false
+
+theme:
+  name: material
+  language: ru
+  features:
+    - content.code.copy
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+
+plugins:
+  - search
+
+nav:
+  - Главная: index.md
+  - Предметные области: subject_areas.md
+  - Теория:
+      - Этап 1. Админ-панель и архитектура веб-приложения: theory/stage1.md
+      - Этап 2. База данных, API и серверная логика: theory/stage2.md
+      - Этап 3. Интерфейс администратора и UX CRUD: theory/stage3.md
+      - Этап 4. Безопасность, аудит и публикация: theory/stage4.md
+  - Практика:
+      - Этап 1. Проектирование админ-панели: practice/stage1.md
+      - Этап 2. Реализация backend и базы данных: practice/stage2.md
+      - Этап 3. Реализация frontend админ-панели: practice/stage3.md
+      - Этап 4. Защита, тестирование и сдача проекта: practice/stage4.md
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.details
+  - pymdownx.superfences
+
