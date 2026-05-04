@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Клиент{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div><h1>{{ "Редактирование клиента" if customer.id else "Новый клиент" }}</h1></div>
+</div>
+<form class="form-card" method="post">
+    <label>ФИО
+        <input name="full_name" value="{{ customer.full_name or '' }}" required>
+    </label>
+    <label>Email
+        <input type="email" name="email" value="{{ customer.email or '' }}">
+    </label>
+    <label>Телефон
+        <input name="phone" value="{{ customer.phone or '' }}">
+    </label>
+    <div class="form-actions">
+        <button type="submit">Сохранить</button>
+        <a href="{{ url_for('admin.customers') }}">Отмена</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,4 +1,6 @@
-# Минимальный skeleton Flask-админки
+# Структура реализованной Flask-админки
+
+Этот файл описывает структуру примера. Рабочий код находится в папке `app/`, запуск выполняется через `run.py`, наполнение базы — через `seed.py`.
 
 ## `run.py`
 
@@ -8,34 +10,18 @@ from app import create_app
 app = create_app()
 ```
 
-## `app/__init__.py`
+## Основные модули
 
-```python
-from flask import Flask
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-
-db = SQLAlchemy()
-migrate = Migrate()
-login_manager = LoginManager()
-login_manager.login_view = "auth.login"
-
-def create_app():
-    app = Flask(__name__)
-    app.config.from_prefixed_env()
-
-    db.init_app(app)
-    migrate.init_app(app, db)
-    login_manager.init_app(app)
-
-    from .auth.routes import auth_bp
-    from .admin.routes import admin_bp
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(admin_bp, url_prefix="/admin")
-
-    return app
-```
+| Путь | Назначение |
+|------|------------|
+| `app/__init__.py` | фабрика приложения, подключение SQLAlchemy и Flask-Login |
+| `app/config.py` | загрузка `.env`, `SECRET_KEY`, `DATABASE_URL` |
+| `app/models.py` | роли, пользователи, товары, категории, клиенты, заказы, журнал действий |
+| `app/auth/routes.py` | вход и выход |
+| `app/admin/routes.py` | dashboard, CRUD, пользователи, журнал действий |
+| `app/templates/` | HTML-шаблоны Jinja2 |
+| `app/static/css/admin.css` | стили админ-панели |
+| `seed.py` | создание таблиц и тестовых данных |
 
 ## Обязательные Flask-разделы
 
@@ -46,4 +32,14 @@ def create_app():
 | `admin/users` | управление пользователями и ролями |
 | `admin/<entity>` | CRUD выбранных сущностей |
 | `activity_log` | запись действий администратора |
+
+## Проверяемые сценарии
+
+1. Вход под `admin@example.local`.
+2. Просмотр dashboard с карточками статистики.
+3. Создание и редактирование товара.
+4. Поиск товара по названию или артикулу.
+5. Фильтрация заказов по статусу.
+6. Ограничение доступа к разделу пользователей для роли `manager`.
+7. Запись входов и CRUD-действий в журнал.
 

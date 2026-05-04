@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Краткий обзор учебной админ-панели интернет-магазина.</p>
+    </div>
+</div>
+
+<section class="stats-grid">
+    <article><strong>{{ stats.products }}</strong><span>товаров</span></article>
+    <article><strong>{{ stats.categories }}</strong><span>категорий</span></article>
+    <article><strong>{{ stats.customers }}</strong><span>клиентов</span></article>
+    <article><strong>{{ stats.orders }}</strong><span>заказов</span></article>
+</section>
+
+<section class="grid-two">
+    <div class="panel">
+        <h2>Последние заказы</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Клиент</th><th>Статус</th><th>Сумма</th></tr></thead>
+            <tbody>
+            {% for order in latest_orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.customer.full_name }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ "%.2f"|format(order.total_amount) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">Заказов пока нет.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel">
+        <h2>Последние действия</h2>
+        <ul class="activity-list">
+            {% for item in latest_actions %}
+            <li>
+                <strong>{{ item.action }}</strong>
+                {{ item.entity_name }} #{{ item.entity_id or "-" }}
+                <span>{{ item.created_at.strftime("%d.%m.%Y %H:%M") }}</span>
+            </li>
+            {% else %}
+            <li>Журнал действий пуст.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}

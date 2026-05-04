@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Заказ{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div><h1>{{ "Редактирование заказа" if order.id else "Новый заказ" }}</h1></div>
+</div>
+<form class="form-card" method="post">
+    <label>Клиент
+        <select name="customer_id" required>
+            {% for customer in customers %}
+            <option value="{{ customer.id }}" {% if order.customer_id == customer.id %}selected{% endif %}>{{ customer.full_name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Статус
+        <select name="status">
+            {% for code, name in statuses %}
+            <option value="{{ code }}" {% if order.status == code %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Сумма
+        <input type="number" step="0.01" min="0" name="total_amount" value="{{ order.total_amount or 0 }}" required>
+    </label>
+    <div class="form-actions">
+        <button type="submit">Сохранить</button>
+        <a href="{{ url_for('admin.orders') }}">Отмена</a>
+    </div>
+</form>
+{% endblock %}

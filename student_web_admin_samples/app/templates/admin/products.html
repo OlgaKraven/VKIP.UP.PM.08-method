@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Товары{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div><h1>Товары</h1><p>CRUD-раздел с поиском, фильтром и подтверждением удаления.</p></div>
+    {% if current_user.has_role('admin', 'manager') %}
+    <a class="button" href="{{ url_for('admin.product_form') }}">Добавить товар</a>
+    {% endif %}
+</div>
+
+<form class="filters" method="get">
+    <input name="q" value="{{ q }}" placeholder="Название или артикул">
+    <select name="status">
+        <option value="">Все статусы</option>
+        <option value="active" {% if status == 'active' %}selected{% endif %}>Активные</option>
+        <option value="hidden" {% if status == 'hidden' %}selected{% endif %}>Скрытые</option>
+    </select>
+    <button type="submit">Применить</button>
+</form>
+
+<table>
+    <thead><tr><th>Название</th><th>Категория</th><th>Артикул</th><th>Цена</th><th>Остаток</th><th>Действия</th></tr></thead>
+    <tbody>
+    {% for product in pagination.items %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category.name }}</td>
+        <td>{{ product.sku }}</td>
+        <td>{{ "%.2f"|format(product.price) }}</td>
+        <td>{{ product.stock_quantity }}</td>
+        <td class="actions">
+            {% if current_user.has_role('admin', 'manager') %}
+            <a href="{{ url_for('admin.product_form', product_id=product.id) }}">Изменить</a>
+            {% endif %}
+            {% if current_user.has_role('admin') %}
+            <form method="post" action="{{ url_for('admin.product_delete', product_id=product.id) }}" onsubmit="return confirm('Удалить товар?')">
+                <button type="submit">Удалить</button>
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">Товары не найдены.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include "admin/pagination.html" %}
+{% endblock %}

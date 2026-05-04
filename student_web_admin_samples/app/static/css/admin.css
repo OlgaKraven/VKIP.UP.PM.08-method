@@ -1,0 +1,295 @@
+:root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #667085;
+    --primary: #315efb;
+    --border: #e4e7ec;
+    --danger: #b42318;
+    --success: #027a48;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    padding: 24px 18px;
+    background: #101828;
+    color: #ffffff;
+}
+
+.brand {
+    display: block;
+    margin-bottom: 28px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.sidebar nav {
+    display: grid;
+    gap: 8px;
+}
+
+.sidebar a {
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: #d0d5dd;
+}
+
+.sidebar a:hover {
+    background: #1d2939;
+    color: #ffffff;
+}
+
+.content {
+    flex: 1;
+    padding: 24px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+    color: var(--muted);
+}
+
+.page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.page-head h1 {
+    margin: 0 0 6px;
+}
+
+.page-head p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.button,
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: var(--primary);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover,
+.button:hover {
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+.messages {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.message {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #eef4ff;
+}
+
+.message.error {
+    background: #fef3f2;
+    color: var(--danger);
+}
+
+.message.success {
+    background: #ecfdf3;
+    color: var(--success);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stats-grid article,
+.panel,
+.form-card,
+.login-card {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--card);
+}
+
+.stats-grid strong {
+    display: block;
+    font-size: 32px;
+}
+
+.stats-grid span {
+    color: var(--muted);
+}
+
+.grid-two {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 16px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+input,
+select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #ffffff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+th,
+td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+th {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.actions form {
+    display: inline;
+}
+
+.actions button {
+    background: #fee4e2;
+    color: var(--danger);
+}
+
+.form-card {
+    display: grid;
+    max-width: 720px;
+    gap: 14px;
+}
+
+.form-card label,
+.login-card label {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+}
+
+.checkbox {
+    display: flex !important;
+    align-items: center;
+    gap: 8px !important;
+}
+
+.checkbox input {
+    width: auto;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-card {
+    max-width: 420px;
+    margin: 80px auto;
+}
+
+.login-card form {
+    display: grid;
+    gap: 14px;
+}
+
+.activity-list {
+    display: grid;
+    gap: 10px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.activity-list span {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+    .layout,
+    .grid-two,
+    .page-head {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}

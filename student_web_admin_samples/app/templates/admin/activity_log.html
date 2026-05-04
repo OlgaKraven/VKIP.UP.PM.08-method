@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Журнал действий{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div><h1>Журнал действий</h1><p>Аудит входов и изменений данных.</p></div>
+</div>
+<form class="filters" method="get">
+    <select name="action">
+        <option value="">Все действия</option>
+        {% for item in ['login', 'logout', 'create', 'update', 'delete'] %}
+        <option value="{{ item }}" {% if action == item %}selected{% endif %}>{{ item }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Применить</button>
+</form>
+<table>
+    <thead><tr><th>Дата</th><th>Пользователь</th><th>Действие</th><th>Сущность</th><th>Описание</th></tr></thead>
+    <tbody>
+    {% for item in pagination.items %}
+    <tr>
+        <td>{{ item.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+        <td>{{ item.user.email if item.user else "-" }}</td>
+        <td>{{ item.action }}</td>
+        <td>{{ item.entity_name }} #{{ item.entity_id or "-" }}</td>
+        <td>{{ item.description }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">Журнал пуст.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include "admin/pagination.html" %}
+{% endblock %}

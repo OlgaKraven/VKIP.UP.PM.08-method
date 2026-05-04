@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Учебная админ-панель{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="layout">
+        {% if current_user.is_authenticated %}
+        <aside class="sidebar">
+            <a class="brand" href="{{ url_for('admin.dashboard') }}">Web Admin</a>
+            <nav>
+                <a href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('admin.products') }}">Товары</a>
+                <a href="{{ url_for('admin.categories') }}">Категории</a>
+                <a href="{{ url_for('admin.customers') }}">Клиенты</a>
+                <a href="{{ url_for('admin.orders') }}">Заказы</a>
+                {% if current_user.has_role('admin') %}
+                <a href="{{ url_for('admin.users') }}">Пользователи</a>
+                {% endif %}
+                {% if current_user.has_role('admin', 'manager') %}
+                <a href="{{ url_for('admin.activity_log') }}">Журнал действий</a>
+                {% endif %}
+            </nav>
+        </aside>
+        {% endif %}
+        <main class="content">
+            {% if current_user.is_authenticated %}
+            <header class="topbar">
+                <span>{{ current_user.full_name }} · {{ current_user.role.name }}</span>
+                <a href="{{ url_for('auth.logout') }}">Выйти</a>
+            </header>
+            {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="messages">
+                    {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

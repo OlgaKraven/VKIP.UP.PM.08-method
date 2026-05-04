@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Категория{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div><h1>{{ "Редактирование категории" if category.id else "Новая категория" }}</h1></div>
+</div>
+<form class="form-card" method="post">
+    <label>Название
+        <input name="name" value="{{ category.name or '' }}" required>
+    </label>
+    <label>Slug
+        <input name="slug" value="{{ category.slug or '' }}" required>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="is_active" {% if category.is_active or not category.id %}checked{% endif %}>
+        Активна
+    </label>
+    <div class="form-actions">
+        <button type="submit">Сохранить</button>
+        <a href="{{ url_for('admin.categories') }}">Отмена</a>
+    </div>
+</form>
+{% endblock %}
