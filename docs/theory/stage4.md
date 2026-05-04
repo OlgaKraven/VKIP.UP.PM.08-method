@@ -53,8 +53,7 @@
 
 Итоговый проект можно показать:
 
-- локально через `npm run dev`, `python manage.py runserver`, `dotnet run` или аналог;
+- локально через `npm run dev`, `flask --app run.py run --debug`, `python manage.py runserver`, `dotnet run` или аналог;
 - в Docker Compose;
 - на учебном сервере;
 - на бесплатной платформе публикации, если это разрешено преподавателем.
-

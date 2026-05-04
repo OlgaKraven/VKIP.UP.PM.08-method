@@ -34,6 +34,59 @@ web-admin-practice/
 
 Для MVC-проекта структура может быть другой, но в репозитории должны быть видны модели, контроллеры, шаблоны/представления и миграции.
 
+### Пример структуры для Flask
+
+```text
+web-admin-practice/
+├── app/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── models.py
+│   ├── auth/
+│   │   ├── routes.py
+│   │   └── forms.py
+│   ├── admin/
+│   │   ├── routes.py
+│   │   └── forms.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── auth/login.html
+│   │   └── admin/
+│   └── static/
+│       ├── css/
+│       └── js/
+├── migrations/
+├── seed.py
+├── requirements.txt
+├── .env.example
+└── run.py
+```
+
+Минимальные зависимости Flask-проекта:
+
+```text
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Login
+Flask-WTF
+python-dotenv
+Werkzeug
+psycopg2-binary
+```
+
+Запуск Flask-варианта:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env
+flask db upgrade
+python seed.py
+flask --app run.py run --debug
+```
+
 ## Минимальные API/контроллеры
 
 | Раздел | Операции |
@@ -46,6 +99,8 @@ web-admin-practice/
 | Entity 3 | CRUD, поиск, фильтрация |
 | Entity 4 | CRUD, поиск, фильтрация |
 | Activity log | список, фильтр по дате/пользователю/действию |
+
+Для Flask с Jinja2 эти операции могут быть реализованы не только как JSON API, но и как маршруты страниц: `/admin/products`, `/admin/products/create`, `/admin/products/<id>/edit`, `/admin/products/<id>/delete`.
 
 ## Что приложить к итоговым материалам
 
@@ -66,4 +121,3 @@ web-admin-practice/
 | Реализован вход в систему? |  |  |
 | CRUD работает на backend? |  |  |
 | Ошибки валидации возвращаются корректно? |  |  |
-

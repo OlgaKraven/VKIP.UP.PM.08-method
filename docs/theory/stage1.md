@@ -19,9 +19,9 @@
 
 | Подход | Когда подходит |
 |--------|----------------|
-| Monolith MVC | Laravel, Django, ASP.NET Core MVC; удобно для учебного проекта |
-| API + SPA | Express/FastAPI + React/Vue; удобно для разделения frontend/backend |
-| Server-rendered + JS | Blade/Razor/Templates + немного JavaScript; быстрее для CRUD |
+| Monolith MVC | Laravel, Django, Flask с Jinja2, ASP.NET Core MVC; удобно для учебного проекта |
+| API + SPA | Express/FastAPI/Flask API + React/Vue; удобно для разделения frontend/backend |
+| Server-rendered + JS | Jinja2/Blade/Razor/Templates + немного JavaScript; быстрее для CRUD |
 
 ## 4. Состав проекта
 
@@ -36,6 +36,17 @@
 - CRUD-разделы;
 - журнал действий;
 - инструкцию запуска.
+
+## 7. Flask как допустимый стек
+
+Flask можно использовать двумя способами:
+
+| Вариант | Описание |
+|---------|----------|
+| Flask + Jinja2 | сервер рендерит страницы админ-панели, JavaScript используется точечно |
+| Flask API + frontend | Flask отдаёт JSON API, отдельный frontend на React/Vue/HTML+JS отвечает за интерфейс |
+
+Для учебной практики особенно удобен вариант **Flask + Jinja2 + SQLAlchemy**, потому что он позволяет быстро собрать полноценную админ-панель: login, dashboard, CRUD-страницы, роли и журнал действий в одном проекте.
 
 ## 5. Роли пользователей
 
@@ -62,4 +73,3 @@
     ├── Журнал действий
     └── Настройки
 ```
-
